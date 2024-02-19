@@ -161,13 +161,19 @@
                        
                         $count_money = DB::table('orders')->where ('supplier','=' , $user->name)
                                                           ->where('delivery_status', '=' , "delivered")->SUM('price');
-                        echo $count_money;
+                        echo '#'.$count_money;
                         
                       }
                       else {
                         $count_money = DB::table('orders')->where('delivery_status', '=' , "delivered")->SUM('price');
-                        echo $count_money;
-                
+                        echo '#'.$count_money;
+                        
+                      }
+                      ?>
+
+                    </h3>
+                    <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+                  </div>
                 </div>
                 <div class="col-3">
                   <div class="icon icon-box-success ">
