@@ -187,11 +187,15 @@ public function order()
 if($user->name !='admin'){
 
   $order= DB::table('orders')->where('supplier', $user->name)->get();
-  return view('admin.order', compact('order'));
+  $count = DB::table('orders')->where('supplier','=' , $user->name)->count();
+  return view('admin.order', compact('order', 'count'));
+  
 }
 else{
   $order= order::all(); 
-  return view('admin.order', compact('order'));
+  $count = DB::table('orders')->count();
+  return view('admin.order', compact('order', 'count'));
+ 
 }
 
 
@@ -227,5 +231,17 @@ public function searchData(Request $request)
 
   return view('admin.order',compact('order'));
 }
+
+
+public function body()
+ {
+    if(Auth::user()){
+        $id = Auth::user()->id;
+        $count = DB::table('products]')->where('user_id','=' , $id)->count();
+        return view('admin.body', compact('count'));
+    }
+    
+    
+ }
 
 }
