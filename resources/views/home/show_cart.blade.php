@@ -100,7 +100,7 @@ table,th,td{
                 <h2 class="total_deg">Total Price: {{$totalprice}}</h2>
             </div>
             <div>
-                <h1 style="font-size: 24px; padding-bottom: 15px;">Proceed to Order</h1>
+                <h1 style="font-size: 24px; padding-bottom: 16px;">Proceed to Order</h1>
                 @if($totalprice==0)
 
                  <div class="btn btn-secondary">Pay with naira card or bank Transfe</div>
