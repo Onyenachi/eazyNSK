@@ -58,7 +58,7 @@
                   @csrf
 
               </div>
- 
+<h5>Number of Orders {{$count}}</h5>
               <table class="center">
                   <tr class="th_color">
                      <th class="th_deg">Name</th>  

@@ -254,6 +254,9 @@ public function buy($id)
     return view('home.blog');
  }
 
+
+ 
+
 }
 
 
