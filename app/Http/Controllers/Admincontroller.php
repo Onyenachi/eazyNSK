@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-use App\Models\user; 
+use App\Models\user;
 
 use Illuminate\Http\Request;
 
@@ -35,22 +35,22 @@ class Admincontroller extends Controller
   public function add_category( Request $request)
   {
     $data=new category;
-    
+
 
     $data->category_name=$request->category;
     $data->save();
 
     return redirect()->back()->with('message', 'Category added successfully');
-   
-    
+
+
   }
 
   #getting data from category_delete url from category page for deleting with id
   public function delete_category($id){
 
-    #selecting the particular item from the category database using the id gotten from the delete_category url from category page 
+    #selecting the particular item from the category database using the id gotten from the delete_category url from category page
     $data=category::find($id);
-    #delete the item 
+    #delete the item
     $data->delete();
     return redirect()->back()->with('message','One category item deleted successfully');
   }
@@ -61,7 +61,7 @@ class Admincontroller extends Controller
     return view('admin.product', compact('category'));
   }
 
-  public function add_product(Request $request) 
+  public function add_product(Request $request)
   {
     $user=Auth::user();
     $product= new product;
@@ -122,17 +122,17 @@ public function show_product()  {
  $id=Auth::user()->id;
 
  $product=product::all();
-  
- if($id ==7){  //it means if the id is my id, which i will always save to 7, 
+
+ if($id ==7){  //it means if the id is my id, which i will always save to 7,
               //let it display every product uploaded.
   return view('admin.show_product', compact('product'));
 
- 
-   
+
+
  }
  else{
   //it means that if the id is not my id. that is as the websit owner
-   //it should not display every product uploaded in this site  
+   //it should not display every product uploaded in this site
     $product=product::where('user_id','=',$id)->get();
     return view('admin.show_product', compact('product'));
  }
@@ -165,9 +165,9 @@ public function update_product_confirm(Request $request, $id)
   $product->quantity=$request->quantity;
   $product->price=$request->price;
   $product->discount_price=$request->discount;
-  
 
-   $image=$request->image; 
+
+   $image=$request->image;
    if($image)
    {
     $product->image=$request->image;
@@ -175,7 +175,7 @@ public function update_product_confirm(Request $request, $id)
     $request->image->move('product',$imagename);
     $product->image=$imagename;
    }
-   
+
 
     $product->save();
     return redirect()->back()->with('message', 'Product Updated Successfully');
@@ -186,28 +186,28 @@ public function update_product_confirm(Request $request, $id)
 public function order()
 {
   $user=Auth::user();
-  
+
 if($user->name !='admin'){ //here am trying to make all orders to be visible to CEO only
 
   $order= DB::table('orders')->where('supplier', $user->name)->get();
   $count = DB::table('orders')->where('supplier','=' , $user->name)->count();
   return view('admin.order', compact('order', 'count', 'user'));
-  
+
 }
 else{
-  $order= order::all(); 
+  $order= order::all();
   $count = DB::table('orders')->count();
   return view('admin.order', compact('order', 'count', 'user'));
- 
+
 }
 
 
 
 
-  
 
 
-  
+
+
   //
   // return view('admin.order', compact('order'));
 }
@@ -229,10 +229,33 @@ public function print_pdf($id)
 
 public function searchData(Request $request)
 {
+
+
+
+    $user=Auth::user();
+
+    if($user->name !='admin'){ //here am trying to make all orders to be visible to CEO only
+
+      $order= DB::table('orders')->where('supplier', $user->name)->get();
+      $count = DB::table('orders')->where('supplier','=' , $user->name)->count();
+    }
+
+
+else{
+    $order= order::all();
+    $count = DB::table('orders')->count();
+
+
+  }
+
+
+
+
+
   $searchText=$request->search;
   $order=order::where('name', 'LIKE', "%$searchText%")->orWhere('phone', 'LIKE', "%$searchText%")->orWhere('email', 'LIKE', "%$searchText%")->get();
 
-  return view('admin.order',compact('order'));
+  return view('admin.order', compact('order', 'count', 'user'));
 }
 
 
@@ -243,8 +266,8 @@ public function body()
         $count = DB::table('products')->where('user_id','=' , $id)->count();
         return view('admin.body', compact('count'));
     }
-    
-    
+
+
  }
 
  public function suppliers()
