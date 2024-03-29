@@ -24,25 +24,36 @@
    </head>
    <body>
 
-   
+
       <div class="hero_area">
          <!-- header section strats -->
          @include('home.header');
+
+
+         @if(session()->has('message'))
+
+         <div class="alert alert-success">
+             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+
+             {{session()->get('message')}}
+
+         </div>
+        @endif
          <!-- end header section -->
          <!-- slider section -->
-        
+
          <!-- end slider section -->
-         
+
       <!-- why section -->
- 
+
       <!-- end why section -->
-      
+
       <!-- arrival section -->
-     
+
        <!-- end arrival section -->
-      
+
       <!-- product section -->
-      
+
 <section class="product_section layout_padding">
     <div class="container">
        <div class="heading_container heading_center">
@@ -50,7 +61,7 @@
              Search <span>products</span>
              <div>
                <form action="{{url('searchProduct')}}" method="GET">
-               
+
                 <input type="text" name="searchProduct" placeholder="search for product">
 
                 <input type="submit" value="search" class="btn btn-outline-primary">
@@ -60,7 +71,7 @@
           </h2>
        </div>
        <div class="row">
-         
+
          @foreach($product as $product)
           <div class="col-sm-6 col-md-4 col-lg-4">
              <div class="box">
@@ -70,22 +81,22 @@
                         Product Details
                       </a>
 
-                     
-                        <a href="{{url('buy',$product->id)}}" class="btn btn-primary">
+
+                        {{-- <a href="{{url('buy',$product->id)}}" class="btn btn-primary">
                           BUY
-                        </a>
-                        
-                      
-                  
-                    <form action="{{url('add_cart', $product->id)}}" method="POST"> 
+                        </a> --}}
+
+
+
+                    <form action="{{url('add_cart', $product->id)}}" method="POST">
                      @csrf
 
                      <div class="row">
                         <div class="col-md-4"> <input type="number" min="1" value="1" name="quantity" style="width: 100px"></div>
-                    
+
                       <div class="col-md-4"> <input type="submit" value="Add to Cart"></div>
                      </div>
-                    
+
                     </form>
 
                       </a>
@@ -101,46 +112,46 @@
 
                   {{-- checking if the product table has value in it discount price to display to customer --}}
                    @if($product->discount_price!=null)
-                   
+
                    <h6 style=" color:red" >
                      discount price
                      <br>
                      #{{$product->discount_price}}
-                  </h6> 
+                  </h6>
 
-                  <h6 style="text-decoration:line-through; color:blue" >  
+                  <h6 style="text-decoration:line-through; color:blue" >
                      price
-                     <br>                 
+                     <br>
                      #{{$product->price}}
                    </h6>
-                 
+
 
                   @else
-                     <h6 style="color: blue">  
+                     <h6 style="color: blue">
                         price
-                        <br>                 
+                        <br>
                         #{{$product->price}}
                       </h6>
 
-                  
-                   
+
+
 
                    @endif
 
                 </div>
-                
-              
+
+
              </div>
-             
+
 
           </div>
-       
-         
+
+
       @endforeach
-         
+
        </div>
     </div>
-  
+
  </section>
       <!-- end product section -->
 
@@ -149,15 +160,15 @@
       <!-- end subscribe section -->
       <!-- client section -->
       @include('home.client');
-      
+
       <!-- end client section -->
       <!-- footer start -->
       @include('home.footer');
       <!-- footer end -->
       <div class="cpy_">
          <p class="mx-auto">© 2024 All Rights Reserved By <a href="https://www.eazynsk.com/">eazyNSK logistics and more</a><br>
-         
-           
+
+
          </p>
       </div>
       <!-- jQery -->

@@ -25,20 +25,30 @@
    <body>
       <div class="hero_area">
          <!-- header section strats -->
-         @include('home.header');
+         @include('home.header')
+
+         @if(session()->has('message'))
+
+         <div class="alert alert-success">
+             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+
+             {{session()->get('message')}}
+
+         </div>
+        @endif
          <!-- end header section -->
          <!-- slider section -->
          @include('home.slider');
          <!-- end slider section -->
-         
+
       <!-- why section -->
       @include('home.why');
       <!-- end why section -->
-      
+
       <!-- arrival section -->
       @include('home.new_arrival');
        <!-- end arrival section -->
-      
+
       <!-- product section -->
       @include('home.product');
       <!-- end product section -->
@@ -48,16 +58,16 @@
       <!-- end subscribe section -->
       <!-- client section -->
       @include('home.client');
-      
+
       <!-- end client section -->
       <!-- footer start -->
       @include('home.footer');
       <!-- footer end -->
-      
+
       <div class="cpy_">
          <p class="mx-auto">© 2024 All Rights Reserved By <a href="https://www.eazynsk.com/">eazyNSK logistics and more</a><br>
-         
-           
+
+
          </p>
       </div>
       <!-- jQery -->

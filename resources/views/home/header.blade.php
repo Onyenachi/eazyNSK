@@ -27,21 +27,29 @@
                    <a class="nav-link" href="{{url('/')}}">Contact</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{url('show_cart')}}"><div style="color:brown; padding: -200px"></div>Cart</a>
+                  <a class="nav-link" href="{{url('show_cart')}}"><div style="color:brown; padding: -200px"></div>Cart  @if(session()->has('message'))
+
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+
+                        {{session()->get('message')}}
+
+                    </div>
+                   @endif</a>
                </li>
                 <form class="form-inline">
                   <a href="{{url('all_product')}}" class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
                   </a>
-               </form>  
+               </form>
 
                @if (Route::has('login'))
-                
+
                 @auth
 
                <li class="nav-item">
                   <x-app-layout>
-   
+
                   </x-app-layout>
                </li>
 
@@ -58,10 +66,10 @@
                @endauth
 
                @endif
-                
 
 
-                
+
+
              </ul>
           </div>
        </nav>

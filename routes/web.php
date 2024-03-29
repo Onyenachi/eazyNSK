@@ -40,6 +40,10 @@ route::get('/view_category', [Admincontroller::class, 'view_category']);
 
 route::get('/body', [Admincontroller::class, 'body']);
 
+
+route::get('/suppliers', [Admincontroller::class, 'suppliers']);
+
+
 route::post('/add_category', [Admincontroller::class, 'add_category']);
 
 route::get('/delete_category/{id}', [Admincontroller::class, 'delete_category']);

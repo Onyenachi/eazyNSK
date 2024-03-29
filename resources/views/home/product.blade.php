@@ -7,8 +7,8 @@
              Our <span>products</span>
              <div>
                <form action="{{url('all_product')}}" method="GET">
-               
-              
+
+
                 <input type="submit" value="click to search for product" class="btn btn-outline-primary">
 
                </form>
@@ -16,7 +16,7 @@
           </h2>
        </div>
        <div class="row">
-         
+
          @foreach($product as $product)
           <div class="col-sm-6 col-md-4 col-lg-4">
              <div class="box">
@@ -26,18 +26,18 @@
                         Product Details
                       </a>
 
-                      <a href="{{url('buy',$product->id)}}" class="btn btn-primary">
+                      {{-- <a href="{{url('buy',$product->id)}}" class="btn btn-primary">
                         BUY
-                      </a>
-                        
-                      
-                  
-                    <form action="{{url('add_cart', $product->id)}}" method="POST"> 
+                      </a> --}}
+
+
+
+                    <form action="{{url('add_cart', $product->id)}}" method="POST">
                      @csrf
 
                      <div class="row">
                         <div class="col-md-4"> <input type="number" min="1" value="1" name="quantity" style="width: 100px"></div>
-                    
+
                       <div class="col-md-4"> <input type="submit" value="Add to Cart"></div>
                      </div>
 
@@ -56,38 +56,38 @@
 
                   {{-- checking if the product table has value in it discount price to display to customer --}}
                    @if($product->discount_price!=null)
-                   
+
                    <h6 style=" color:red" >
                      discount price
                      <br>
                      #{{$product->discount_price}}
-                  </h6> 
+                  </h6>
 
-                  <h6 style="text-decoration:line-through; color:blue" >  
+                  <h6 style="text-decoration:line-through; color:blue" >
                      price
-                     <br>                 
+                     <br>
                      #{{$product->price}}
                    </h6>
-                 
+
 
                   @else
-                     <h6 style="color: blue">  
+                     <h6 style="color: blue">
                         price
-                        <br>                 
+                        <br>
                         #{{$product->price}}
                       </h6>
 
-                  
-                   
+
+
 
                    @endif
 
                 </div>
              </div>
           </div>
-         
+
       @endforeach
-         
+
        </div>
     </div>
  </section>

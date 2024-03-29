@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\user; 
-use App\Models\product; 
-use App\Models\cart; 
-use App\Models\order; 
+use App\Models\user;
+use App\Models\product;
+use App\Models\cart;
+use App\Models\order;
 
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +24,7 @@ class Homecontroller extends Controller
         $product=product::all();
         return view('home.userpage', compact('product'));
 
-        
+
     }
 
    public function redirect()
@@ -40,7 +40,7 @@ class Homecontroller extends Controller
         $product=product::all();
         return view('home.userpage', compact('product'));
 
-        
+
     }
 
    }
@@ -53,7 +53,7 @@ class Homecontroller extends Controller
 
    public function add_cart(Request $request,$id)
    {
-    
+
     if(Auth::id())
     {
        $user=Auth::user();
@@ -86,7 +86,7 @@ class Homecontroller extends Controller
          {
             $cart->price=$product->price * $request->quantity;
          }
-          
+
 
        $cart->image=$product->image;
 
@@ -96,9 +96,9 @@ class Homecontroller extends Controller
 
        $cart->save();
 
-    
-       return redirect()->back();
-      
+
+       return redirect()->back()->with('message', 'Item added to your cart, Click on Cart above to order for it.');
+
     }
 
 
@@ -113,7 +113,7 @@ class Homecontroller extends Controller
     if(Auth::user())
     {
 
-    
+
     $id=Auth::user()->id;
     $cart=cart::where('user_id','=',$id)->get();
     $count = DB::table('carts')->where('user_id','=' , $id)->count();
@@ -139,13 +139,13 @@ class Homecontroller extends Controller
     $userid=$user->id;
 
     $data=cart::where('user_id','=',$userid)->get();
-  
+
 
     foreach($data as $data)
     {
         $order=new order;
 
-        $order->supplier=$data->supplier; 
+        $order->supplier=$data->supplier;
 
         $order->name=$data->name;
         $order->email=$data->email;
@@ -194,11 +194,11 @@ public function stripePost(Request $request)
             "amount" => 100 * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
-            "description" => "Making payment for the order." 
+            "description" => "Making payment for the order."
     ]);
-  
+
     Session::flash('success', 'Payment successful!');
-          
+
     return back();
 }
 
@@ -255,7 +255,7 @@ public function buy($id)
  }
 
 
- 
+
 
 }
 

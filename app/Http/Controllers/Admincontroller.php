@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
 
+
+
 use App\Models\user; 
 
 use Illuminate\Http\Request;
@@ -184,17 +186,18 @@ public function update_product_confirm(Request $request, $id)
 public function order()
 {
   $user=Auth::user();
-if($user->name !='admin'){
+  
+if($user->name !='admin'){ //here am trying to make all orders to be visible to CEO only
 
   $order= DB::table('orders')->where('supplier', $user->name)->get();
   $count = DB::table('orders')->where('supplier','=' , $user->name)->count();
-  return view('admin.order', compact('order', 'count'));
+  return view('admin.order', compact('order', 'count', 'user'));
   
 }
 else{
   $order= order::all(); 
   $count = DB::table('orders')->count();
-  return view('admin.order', compact('order', 'count'));
+  return view('admin.order', compact('order', 'count', 'user'));
  
 }
 
@@ -237,11 +240,24 @@ public function body()
  {
     if(Auth::user()){
         $id = Auth::user()->id;
-        $count = DB::table('products]')->where('user_id','=' , $id)->count();
+        $count = DB::table('products')->where('user_id','=' , $id)->count();
         return view('admin.body', compact('count'));
     }
     
     
+ }
+
+ public function suppliers()
+ {
+  if(Auth::user()){
+    $user_id = Auth::user()->usertype;
+    $suppliers = DB::table('users')->where('usertype', '=' , 1)->get();
+
+    // $name = Auth::user()->name;
+
+    // $count = DB::table('products')->where('supplier','=' , $name)->get();
+  }
+  return view('admin.suppliers', compact('suppliers'));
  }
 
 }

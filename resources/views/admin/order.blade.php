@@ -20,7 +20,7 @@
             max-height: 70px;
         }
         .th_color{
-            background: rgb(227, 147, 147);
+            background: rgb(96, 63, 63);
         }
         .th_deg{
             padding: 10px;
@@ -61,36 +61,50 @@
 <h5>Number of Orders {{$count}}</h5>
               <table class="center">
                   <tr class="th_color">
-                     <th class="th_deg">Name</th>  
-                     <th class="th_deg">Email</th>  
-                     <th class="th_deg">Address</th>  
+                     <th class="th_deg" style="color: gold">Name</th>  
+                     <th class="th_deg" style="color: rgb(215, 195, 235)">Email</th>  
+                     <th class="th_deg" style="color: yellow">Address</th>  
                      <th class="th_deg">Price</th>  
-                     <th class="th_deg">Phone</th>  
-                     <th class="th_deg">Product title</th> 
-                     <th class="th_deg">Quantity</th> 
+                     <th class="th_deg" style="color: rgb(53, 214, 35)">Phone</th>  
+                     <th class="th_deg" style="color: rgb(250, 24, 24)">Product title</th> 
+                     <th class="th_deg" style="color: rgb(242, 225, 41)">Quantity</th> 
                    
-                     <th class="th_deg">Payment Status</th> 
-                     <th class="th_deg">Delivery Status</th> 
+                     <th class="th_deg" style="color: rgb(110, 156, 186)">Payment Status</th> 
+                     <th class="th_deg"  style="color: rgb(3, 14, 85)" >Delivery Status</th> 
                      <th class="th_deg">Image</th> 
-                     <th class="th_deg">Delivered</th> 
-                     <th class="th_deg">Print Out</th> 
+                     <th class="th_deg">Update Delivered</th>
+                     
+                     
+                     @if( $user->name== 'admin'){
+                      <th class="th_deg">Supplier</th>
+                     }
+                      
+                     @endif
+                
+                     <th class="th_deg">Print Out</th>
+                      
                    
                   </tr> 
                   
                   @forelse ($order as $order)
                 
               <tr>
-                  <td>{{$order->name}}</td>   
-                  <td>{{$order->email}}</td>
-                  <td>{{$order->address}}</td>
+                  <td style="color: gold">{{$order->name}}</td>   
+                  <td style="color: rgb(215, 195, 235)">{{$order->email}}</td>
+                  <td style="color: yellow">{{$order->address}}</td>
                   <td>{{$order->price}}</td>
-                  <td>{{$order->phone}}</td>
-                  <td>{{$order->product_title}}</td>
-                  <td>{{$order->quantity}}</td>
-                  <td>{{$order->payment_status}}</td>
-                  <td>{{$order->delivery_status}}</td>
+                  <td style="color: rgb(53, 214, 35)">{{$order->phone}}</td>
+                  <td style="color: rgb(250, 24, 24)">{{$order->product_title}}</td>
+                  <td style="color: rgb(242, 225, 41)">{{$order->quantity}}</td>
+                  <td style="color: rgb(110, 156, 186)">{{$order->payment_status}}</td>
+                  @if($order->delivery_status="Delivered")
+                  <td style="color: rgb(3, 14, 85)">{{$order->delivery_status}}</td>
+
+                  @else  <td style="color: rgb(235, 236, 245)">{{$order->delivery_status}}</td>
+                  @endif
                   
-                  <td class="img_size"><img src="product/{{$order->image}}"></td>
+                  
+                  <td class="img_size "><img src="product/{{$order->image}}"></td>
 
                  
                  <td> 
@@ -103,11 +117,16 @@
 
                   @endif
                 </td>
-                <td><a href="{{url('print_pdf',$order->id)}}" class="btn btn-secondary">Print</td>
-
                 
-                 
+                {{-- making registered suppliers display only available for CEO --}}
+                @if( $user->name== 'admin'){
+                  <td>{{$order->supplier}}</td>
+                 }
                   
+                 @endif
+               
+                <td><a href="{{url('print_pdf',$order->id)}}" class="btn btn-secondary">Print</td>
+      
               </tr>
               @empty
                 <tr>
