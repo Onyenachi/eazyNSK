@@ -54,8 +54,8 @@ table,th,td{
          <!-- header section strats -->
          @include('/home.header')
 
-    
-     
+
+
          <!-- end header section -->
          @if(session()->has('message'))
 
@@ -77,7 +77,7 @@ table,th,td{
                 <th class="th_deg">Action</th>
 
                  <?php $totalprice = 0?>
-                 
+
 
 
                  @foreach ($cart as $cart)
@@ -87,16 +87,18 @@ table,th,td{
                 <td>{{$cart->price}}</td>
                 <td><img class="img_deg" src="/product/{{$cart->image}}"></td>
                 <td><a  href="{{url('/remove_cart',$cart->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to remove this item from your cart?')">Remove Product</td>
-    
+
                 <tr>
                     <?php $totalprice = $totalprice + $cart->price?>
-    
+
               @endforeach
-    
-    
+
+
                 </tr>
             </table>
+            <div style="color:aqua; background-color: black"> click Remove to remove item you don't want to buy for now. </div>
             <div>
+
                 <h2 class="total_deg">Total Price: {{$totalprice}}</h2>
             </div>
             <div>
@@ -108,19 +110,19 @@ table,th,td{
                  @else
                  <a href="{{url('monify', $totalprice)}}"class="btn btn-primary">Pay with naira card or bank Transfer</a>
                 @endif
-                
+
                 {{-- <a href="{{url('cash_order')}}" class="btn btn-danger">Cash On Delivery</a> --}}
-               
+
             </div>
           </div>
-         
 
 
-   
+
+
           <div class="cpy_">
             <p class="mx-auto">© 2024 All Rights Reserved By <a href="https://www.eazynsk.com/">eazyNSK logistics and more</a><br>
-            
-              
+
+
          </p>
       </div>
       <!-- jQery -->
