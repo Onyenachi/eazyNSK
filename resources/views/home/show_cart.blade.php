@@ -84,7 +84,7 @@ table,th,td{
                 </tr>
                 <td>{{$cart->product_title}}</td>
                 <td>{{$cart->quantity}}</td>
-                <td>{{$cart->price}}</td>
+                <td>#{{$cart->price}}</td>
                 <td><img class="img_deg" src="/product/{{$cart->image}}"></td>
                 <td><a  href="{{url('/remove_cart',$cart->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to remove this item from your cart?')">Remove Product</td>
 
@@ -96,18 +96,23 @@ table,th,td{
 
                 </tr>
             </table>
-            <div style="color:aqua; background-color: black"> click Remove to remove item you don't want to buy for now. </div>
+            @if ($totalprice!==0)
+                <div style="color:aqua; background-color: black"> click Remove to remove item you don't want to buy for now. </div>
             <div>
+            @endif
 
-                <h2 class="total_deg">Total Price: {{$totalprice}}</h2>
+
+                <h2 class="total_deg">Total Price: #{{$totalprice}}</h2>
             </div>
             <div>
-                <h1 style="font-size: 24px; padding-bottom: 16px;">Proceed to Order</h1>
-                @if($totalprice==0)
 
-                 <div class="btn btn-secondary">Pay with naira card or bank Transfe</div>
+                @if($totalprice==0)
+                <h1 style="font-size: 24px; padding-bottom: 16px; padding: 20%">You haven't added any item to your CART for purchase </h1>
+
+
 
                  @else
+                 <h1 style="font-size: 24px; padding-bottom: 16px;">Proceed to Order</h1>
                  <a href="{{url('monify', $totalprice)}}"class="btn btn-primary">Pay with naira card or bank Transfer</a>
                 @endif
 
